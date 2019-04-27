@@ -15,6 +15,14 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      totalElapsedTime: 0,
+      startTime: 0,
+      stopTime: 0,
+      sessionElapsedTime: 0,
+      stopWatchOn: false,
+      hours: 0,
+      minutes: 0,
+      seconds: 0
 
     }
   }
@@ -44,6 +52,27 @@ class App extends React.Component {
         </header>
       </div>
     );
+  }
+  //this runs 1x as soon as App is loaded 
+  componentDidMount() {
+    this.interval = setInterval(() => {
+      let totalSeconds = this.state.stopWatchOn ? this.state.totalElapsedTime + 1 - this.state.startTime : this.state.sessionElapsedTime;
+      let hours = parseInt(totalSeconds / 3600);
+      let minutes = parseInt((totalSeconds - (hours * 3600)) / 60);
+      let seconds = parseInt((totalSeconds - (hours * 3600) - (minutes * 60)));
+
+      this.setState({
+        totalElapsedTime: this.state.totalElapsedTime + 1,
+        sessionElapsedTime: totalSeconds,
+        hours: hours,
+        minutes: minutes,
+        seconds: seconds
+      })
+    }, 1000)
+  }
+  //this is added to keep the memory clean, not to ever unmout this
+  componentWillUnmount() {
+    clearInterval(this.interval);
   }
   _startButton = () => {
     this.setState({
