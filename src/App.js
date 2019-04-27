@@ -4,6 +4,7 @@ import ElapsedTime from './ElapsedTime';
 import Start from './Start';
 import Stop from './Stop';
 import Reset from './Reset';
+import ClockSecondHand from './ClockSecondHand';
 
 
 
@@ -16,8 +17,20 @@ class App extends React.Component {
   }
   
   render() {
+    const secDeg = 90;
+    const styles = {
+      transform: `rotate(${secDeg}deg)`
+    };
+
     return (
       <div className="App">
+        <header>
+          <div className="clock">
+            <div className="clockback">
+              <ClockSecondHand seconds={this.state.seconds} />
+            </div>
+          </div>
+        </header>
         <header className="App-header">
           <ElapsedTime sessionElapsedTime={this.state.sessionElapsedTime} hours={this.state.hours} minutes={this.state.minutes} seconds={this.state.seconds} />
           <Start handler={this._startButton} />
