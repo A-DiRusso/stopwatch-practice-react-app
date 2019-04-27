@@ -5,6 +5,8 @@ import Start from './Start';
 import Stop from './Stop';
 import Reset from './Reset';
 import ClockSecondHand from './ClockSecondHand';
+import ClockMinuteHand from './ClockMinuteHand';
+
 
 
 
@@ -27,6 +29,7 @@ class App extends React.Component {
         <header>
           <div className="clock">
             <div className="clockback">
+              <ClockMinuteHand minutes={this.state.minutes} />
               <ClockSecondHand seconds={this.state.seconds} />
             </div>
           </div>
